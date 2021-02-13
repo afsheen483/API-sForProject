@@ -39,7 +39,4 @@ Route::apiResource('product_category','Product\Product_Category');
 Route::apiResource('subproduct','Product\SubProduct');
 Route::apiResource('business_supplier','BusinessSupplierController');
 Route::apiResource('city','CityController');
-
-
-
-
+Route::apiResource('users','user');
