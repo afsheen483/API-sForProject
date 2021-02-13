@@ -21,13 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('brand','Brand\BrandController@brand');
-Route::get('brand/{id}','Brand\BrandController@brandByID');
-Route::post('brand','Brand\BrandController@brandSave');
-//Route::put('brand/{brand}','Brand\BrandController@brandUpdate');
-Route::put('brand/{id}','Brand\BrandController@brandUpdate');
-//Route::delete('brand/{brand}','Brand\BrandController@brandDelete');
-Route::delete('brand/{id}','Brand\BrandController@brandDelete');
+
 Route::apiResource('product','Product\Product');
 //Route::apiResource('product', Product::class);
 Route::post('login','Login\LoginController@login');
