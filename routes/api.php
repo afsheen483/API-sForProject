@@ -33,4 +33,8 @@ Route::apiResource('product_category','Product\Product_Category');
 Route::apiResource('subproduct','Product\SubProduct');
 Route::apiResource('business_supplier','BusinessSupplierController');
 Route::apiResource('city','CityController');
+<<<<<<< HEAD
 Route::apiResource('users','user');
+=======
+Route::resource('users','users');
+>>>>>>> deb7a188ad48ddf6393e6f7d71cebc7d76e63c56
