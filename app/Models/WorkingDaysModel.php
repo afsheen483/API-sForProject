@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class WorkingDaysModel extends Model
 {
     use HasFactory;
+     protected $table = 'working_days';
+    public $timestamps = false;
+    protected $filable = [
+    	'working_day_name',
+    	'business_id'
+
+    ];
 }

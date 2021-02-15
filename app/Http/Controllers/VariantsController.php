@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\VariantsModel;
+use DB;
+use Validator;
 
 class VariantsController extends Controller
 {
@@ -11,9 +14,14 @@ class VariantsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   public function index()
     {
-        //
+        $variants =DB::table('variants')
+            ->join('sub_products', 'variants.sub_product_id', '=', 'variants.id')
+            ->select('variants.*', 'sub_products.*')
+            ->get();
+            //dd($product);
+        return response()->json( $variants->all());
     }
 
     /**
@@ -34,7 +42,17 @@ class VariantsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+         $rules = [
+            'variant_name'=>'required',
+        ];
+        $validtor=Validator::make($request->all(),$rules);
+        if ($validtor->fails()) {
+            return response()->json($validtor->errors(),400);
+            
+        }
+        $variants = VariantsModel::create($request->all());
+        return response()->json($variants, 201);
     }
 
     /**
@@ -45,7 +63,11 @@ class VariantsController extends Controller
      */
     public function show($id)
     {
-        //
+        $variants=VariantsModel::find($id);
+        if (is_null($variants)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        return response()->json($variants,200);
     }
 
     /**
@@ -68,7 +90,12 @@ class VariantsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $variants=VariantsModel::find($id);
+        if (is_null($variants)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        $variants->update($request->all());
+        return response()->json($variants,200);
     }
 
     /**
@@ -79,6 +106,11 @@ class VariantsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $variants=VariantsModel::find($id);
+        if (is_null($variants)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        $variants->delete();
+        return response()->json(null,204);
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\WorkingDaysModel;
+use DB;
+use Validator;
 
 class WorkingDaysController extends Controller
 {
@@ -13,7 +16,12 @@ class WorkingDaysController extends Controller
      */
     public function index()
     {
-        //
+        $working_days =DB::table('working_days')
+            ->join('suppliers_business', 'working_days.business_id', '=', 'suppliers_business.id')
+            ->select('working_days.*', 'suppliers_business.*')
+            ->get();
+            //dd($product);
+        return response()->json( $working_days->all());
     }
 
     /**
@@ -34,7 +42,17 @@ class WorkingDaysController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+         $rules = [
+            'working_day_name'=>'required',
+        ];
+        $validtor=Validator::make($request->all(),$rules);
+        if ($validtor->fails()) {
+            return response()->json($validtor->errors(),400);
+            
+        }
+        $working_days = WorkingDaysModel::create($request->all());
+        return response()->json($working_days, 201);
     }
 
     /**
@@ -45,7 +63,11 @@ class WorkingDaysController extends Controller
      */
     public function show($id)
     {
-        //
+        $working_days=WorkingDaysModel::find($id);
+        if (is_null($working_days)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        return response()->json($working_days,200);
     }
 
     /**
@@ -68,7 +90,12 @@ class WorkingDaysController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $working_days=WorkingDaysModel::find($id);
+        if (is_null($working_days)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        $working_days->update($request->all());
+        return response()->json($working_days,200);
     }
 
     /**
@@ -79,6 +106,11 @@ class WorkingDaysController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $working_days=WorkingDaysModel::find($id);
+        if (is_null($working_days)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
+        }
+        $working_days->delete();
+        return response()->json(null,204);
     }
 }
