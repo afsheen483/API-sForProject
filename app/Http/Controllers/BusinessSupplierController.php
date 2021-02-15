@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BusinessSupplieModel;
-
+use DB;
 
 class BusinessSupplierController extends Controller
 {
@@ -15,7 +15,13 @@ class BusinessSupplierController extends Controller
      */
     public function index()
     {
-        return response()->json(BusinessSupplieModel::get(),200);
+        $suppliers_business = DB::table('suppliers_business')
+            ->join('users', 'suppliers_business.user_id', '=', 'users.id')
+            ->join('cities','suppliers_business.city_id','=','cities.id')
+            ->select( 'suppliers_business.*','users.*','cities.*')
+            ->get();
+        return response()->json( $suppliers_business->all());
+        //return response()->json(BusinessSupplieModel::get(),200);
     }
 
     /**

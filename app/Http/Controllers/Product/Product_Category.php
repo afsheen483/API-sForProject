@@ -75,15 +75,16 @@ class Product_Category extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        $product_category = ProductCategory::find($id);
-        if (in_null($product_category)) {
-            return response()->json(['message'=>'Record Not Found!'], 404);
+        $productcategory=ProductCategory::find($id);
+        if (is_null($productcategory)) {
+            return response()->json(['message'=>'Record Not Found!'],404);
         }
-        $product_category->update($request->all());
-        return response()->json($product_category, 200);
+        $productcategory->update($request->all());
+        return response()->json($productcategory,200);
     }
+
 
     /**
      * Remove the specified resource from storage.

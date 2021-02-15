@@ -17,4 +17,5 @@ class ProductModel extends Model
         'date',
         'category_id',
     ];
+    
 }

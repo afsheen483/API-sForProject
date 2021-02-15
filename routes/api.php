@@ -39,6 +39,30 @@ Route::apiResource('product_category','Product\Product_Category');
 Route::apiResource('subproduct','Product\SubProduct');
 Route::apiResource('business_supplier','BusinessSupplierController');
 Route::apiResource('city','CityController');
+Route::apiResource('user','UserController');
+Route::apiResource('role','RoleController');
+Route::apiResource('discount','DiscountController');
+Route::apiResource('coupons','CouponsController');
+Route::apiResource('workingHours','WorkinHoursController');
+Route::apiResource('workingDays','WorkingDaysController');
+Route::apiResource('variants','VariantsController');
+Route::apiResource('payments','PaymentController');
+Route::apiResource('orders','OrdersController');
+Route::apiResource('ratings','RatingsController');
+
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+  
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
+});
 
 
 

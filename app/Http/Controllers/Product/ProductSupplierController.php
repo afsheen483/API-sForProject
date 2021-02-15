@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product\ProductModel;
-use Validator;
-use DB;
 
-class ProductController extends Controller
+class ProductSupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //return response()->json(ProductModel::get());
-        $product =DB::table('products')
-            ->join('product_categories', 'products.id', '=', 'product_categories.id')
-            ->select('products.*', 'product_categories.category_name', 'product_categories.date')
-            ->get();
-            //dd($product);
-        return response()->json( $product->all());
+        //
     }
 
     /**
@@ -44,8 +35,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = ProductModel::create($request->all());
-        return response()->json($product, 201);
+        //
     }
 
     /**
@@ -56,11 +46,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = ProductModel::find($id);
-        if (is_null($product)) {
-            return response()->json(['message'=>'Record Not Found!'],404);
-        }
-         return response()->json($product, 200);
+        //
     }
 
     /**
@@ -83,13 +69,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = ProductModel::find($id);
-        if (is_null($product)) {
-            return response()->json(['message'=>'Record Not Found!'],404);
-        }
-        $product->update($request->all());
-        return response()->json($product,200);
-
+        //
     }
 
     /**
@@ -100,12 +80,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = ProductModel::find($id);
-        if (is_null($product)) {
-            return response()->json(['message'=>'Record Not Found!'], 404);
-        }
-        $product->delete();
-      return response()->json(null,204);
-
+        //
     }
 }

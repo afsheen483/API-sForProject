@@ -17,4 +17,8 @@ class SubProductModel extends Model
         'sub_product_image',
         'products_id',
     ];
+    public function products()
+    {
+        return $this->belongsTo('App\Models\ProductModel', 'products_id','id');
+    }
 }

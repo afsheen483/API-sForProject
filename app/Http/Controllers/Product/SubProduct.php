@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product\SubProductModel;
-
+use DB;
 class SubProduct extends Controller
 {
     /**
@@ -15,7 +15,13 @@ class SubProduct extends Controller
      */
     public function index()
     {
-        return response()->json(SubProductModel::get(), 200);
+        //return response()->json(SubProductModel::get(), 200);
+         $sub_products = DB::table('sub_products')
+            ->join('products', 'sub_products.products_id', '=', 'products.id')
+            ->select( 'sub_products.*','products.*')
+            ->get();
+        return response()->json( $sub_products->all());
+
     }
 
     /**

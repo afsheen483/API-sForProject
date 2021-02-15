@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CityModel extends Model
+class RoleModel extends Model
 {
     use HasFactory;
-    protected $table = "cities";
-    public $timestamps = false;
+    protected $table = 'roles';
+    public $timestamps=false;
     protected $fillable = [
-        'id',
-        'city_name',
-        'city_postal_code',
-        'city_image',
+        'name',
+        'display_name',
+        'description'
     ];
 }
