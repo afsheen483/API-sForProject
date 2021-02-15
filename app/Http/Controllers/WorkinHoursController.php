@@ -9,11 +9,7 @@ use Validator;
 
 class WorkinHoursController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $working_duration =DB::table('working_duration')

@@ -9,11 +9,7 @@ use Validator;
 
 class VariantsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
    public function index()
     {
         $variants =DB::table('variants')

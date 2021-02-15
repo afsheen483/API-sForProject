@@ -9,11 +9,7 @@ use Validator;
 
 class WorkingDaysController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $working_days =DB::table('working_days')
